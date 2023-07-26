@@ -13,7 +13,7 @@ WSL2オプションを有効にする。
 ## Ubuntuのインストール
 UbuntuのLTSをMicrosoft Storeインストールする。
 ![Microsoft Store](./images/ms_store_ubuntu.png)
-```
+
 ※今回は22.04.06をインストールする。
 
 ### ソフトウェアのセットアップ
@@ -22,9 +22,10 @@ Ubuntuに必要なソフトウェアをセットアップする。
 > sudo apt update
 > sudo apt upgarde
 > sudo apt git build-essential
+```
 
 ## サンプルのビルド
 あとは、[OpenLane を誰でも簡単に!](README.md) に従えば、サンプルがビルドできるはずである。
-```
+
 また、Dockerのイメージとしては、下記のように追加される。
 ![Docker IIC Images](./images/docker_iic_image.png)
