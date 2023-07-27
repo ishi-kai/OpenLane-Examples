@@ -9,6 +9,8 @@
 の iic-osic-tools の情報をもとにしています。手順は先のページのほうが
 絵付きで詳しく書いてあります。
 
+また、dockerが無い/苦手のばあいは https://anaconda.org/litex-hub/openlane がおすすめです。
+
 0. ターゲットは Linux/Mac/[Windows(WSL)](/windows.md)
 1. Docker の準備
 2. iic-osic-tools の 2023.06 を clone
