@@ -26,7 +26,7 @@ $ DOCKER_TAG=2023.06 ./start_shell.sh
 docker が `Got permission denied while trying to connect to the Docker daemon socke` と permission denied になる場合は /etc/group の docker に自分の名前を追加しましょう。[参考:ユーザをdockerグループに入れる](https://qiita.com/tifa2chan/items/9dc28a56efcfb50c7fbe)
 
 4. ryos36 の caravel_user_project を clone して 42d1f1fb を chekout
-efabless の caravel_user_project ではエラーになるので注意。
+efabless の caravel_user_project ではフロー実行中にエラーになるので注意。
 
 ```
 /foss/designs > git clone https://github.com/ryos36/caravel_user_project.git 
@@ -41,13 +41,26 @@ efabless の caravel_user_project ではエラーになるので注意。
 ```
 これで klayout で表示可能な GDSII 形式のレイアウトが出来るはず。
 
+できた gds は[こちら](./gds)
+
 6. klayout で確認
-Docker の外で signoff にある gds を klayout という GDSII を可視化するツールで見る。うまく Docker が起動していると ~/eda/designs に Docker の Image がマウントされているらしい。mount してない場合は docker cp でコピーする。
+
+Docker の外で signoff にある gds を klayout という GDSII を可視化するツールで見る。
+Docker 内で klayout を実行するのが一番簡単。
+Docker内だと k か ke がレイヤー情報を読み込んで起動する alias になってます。
 
 ```
-klayout ~/eda/designs/caravel_user_project/openlane/user_proj_example/runs/my-test/results/signoff/user_proj_example.klayout.gds
+klayout -e -c /foss/tolls/sak/klayout/tech/$PDK/$PDK.krc -nn $PDKPATH/libs.tech/klayout/tech/$PDK.lyt -l $PDKPATH/libs.tech/klayout/tech/$PDK.lyp
 ```
+
 <img src="./images/klayout-counter.png" width="320px">
+
+下のほうのごちゃごちゃしたところから論理に関係するセルだけ表示するとこんな感じ
+
+<img src="./images/counter.png" width="320px">
+
+Linux 本体でみたいなら
+うまく Docker が起動していると ~/eda/designs に Docker の Image がマウントされているからそこから gds を拾える。mount してない場合は docker cp でコピーする。レイヤー情報等は別途必要だが。
 
 
 なお、caravel とつなげるためには user_proj_wrapper を作らないといけないみたいだが、それにはさらなる困難が待ち受けているらしい。
